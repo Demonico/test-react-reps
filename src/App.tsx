@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+
+import API from './utils/API'
 
 function App() {
+  const [field, setfield] = useState('')
+  const [repDeets, setrepDeets] = useState('')
+
+  useEffect(() => {
+    async function getDeets() {
+      API.getReps(field).then((response) => {
+        setrepDeets(response.data.results)
+      })
+    }
+    if (field.length === 2) {
+      getDeets()
+    }
+  }, [field])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Who's My Representative?</h1>
+      <div>
+        <input value={field} onChange={(e) => setfield(e.target.value)} />
+        <div>{repDeets}</div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
