@@ -10,7 +10,7 @@ export default {
     })
   },
   getSens: async function (state: string) {
-    return axios.get('/.netlify/functions/', {
+    return axios.get('/.netlify/functions/rep-by-state', {
       params: {
         state,
         type: 'sen',

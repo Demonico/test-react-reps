@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from 'react'
+import { Col, Container, Row } from 'reactstrap'
 
 import API from './utils/API'
+import states from './utils/states'
+
+import SearchForm from './components/SearchForm'
 
 function App() {
-  const [field, setfield] = useState('')
-  const [repDeets, setrepDeets] = useState('')
-
-  useEffect(() => {
-    async function getDeets() {
-      API.getReps(field).then((response) => {
-        setrepDeets(response.data.results)
-      })
-    }
-    if (field.length === 2) {
-      getDeets()
-    }
-  }, [field])
-
   return (
-    <div>
+    <Container>
       <h1>Who's My Representative?</h1>
-      <div>
-        <input value={field} onChange={(e) => setfield(e.target.value)} />
-        <div>{repDeets}</div>
-      </div>
-    </div>
+      <Row>
+        <Col>
+          <SearchForm />
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
